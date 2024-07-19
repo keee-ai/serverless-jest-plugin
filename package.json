@@ -1,6 +1,6 @@
 {
   "name": "serverless-jest-plugin-v3",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Serverless v3+ plugin for test driven development using Jest",
   "main": "./dist/cjs/index.js",
   "author": "keee Engineering Team <engineering@keee.ai>",
@@ -35,6 +35,13 @@
   "bugs": {
     "url": "https://github.com/keee-ai/serverless-jest-plugin/issues"
   },
+  "keywords": [
+    "serverless",
+    "serverless jest",
+    "serverless-jest-plugin",
+    "serverless-jest-plugin-v3",
+    "serverless-jest-plugin v3"
+  ],
   "homepage": "https://github.com/keee-ai/serverless-jest-plugin#readme",
   "devDependencies": {
     "@babel/cli": "^7.24.8",
