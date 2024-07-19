@@ -1,13 +1,11 @@
 # Serverless Jest Plugin
 
-[![Build Status](https://travis-ci.org/nordcloud/serverless-jest-plugin.svg?branch=master)](https://travis-ci.org/nordcloud/serverless-jest-plugin)
-
-A Serverless Plugin for the [Serverless Framework](http://www.serverless.com) which
+A Serverless Plugin for the [Serverless Framework](http://www.serverless.com) v3+ which
 adds support for test-driven development using [jest](https://facebook.github.io/jest/)
 
-**THIS PLUGIN REQUIRES SERVERLESS V1.0 OR LATER!**
+**THIS PLUGIN REQUIRES SERVERLESS v3.0 OR LATER!**
 
-More familiar with Mocha? Try [serverless-mocha-plugin](https://github.com/nordcloud/serverless-mocha-plugin).
+This package is forked from [@nordcloud/serverless-jest-plugin](https://github.com/nordcloud/serverless-jest-plugin) which was abandoned and broke with Serverless v3
 
 ## Introduction
 
@@ -21,14 +19,14 @@ This plugins does the following:
 In your service root, run:
 
 ```bash
-npm install --save-dev serverless-jest-plugin
+npm install --save-dev serverless-jest-plugin-v3
 ```
 
 Add the plugin to `serverless.yml`:
 
 ```yml
 plugins:
-  - serverless-jest-plugin
+  - serverless-jest-plugin-v3
 custom:
   jest:
     # You can pass jest options here
@@ -46,7 +44,7 @@ Functions (and associated tests) can be created using the command
 ```
 sls create function -f functionName --handler handler
 ```
- 
+
 e.g.
 
 ```
@@ -54,8 +52,8 @@ sls create function -f myFunction --handler functions/myFunction/index.handler
 ```
 
 creates a new function `myFunction` into `serverless.yml` with a code template for
-the handler in `functions/myFunction/index.js` and a Javascript function `module.exports.handler` 
-as the entrypoint for the Lambda function. A test template is also created into `test/myFunction.js`. Optionally tests can be created to specific folder using `--path` or `-p` switch, e.g. 
+the handler in `functions/myFunction/index.js` and a Javascript function `module.exports.handler`
+as the entrypoint for the Lambda function. A test template is also created into `test/myFunction.js`. Optionally tests can be created to specific folder using `--path` or `-p` switch, e.g.
 
 ```
 sls create function -f myFunction --handler functions/myFunction/index.handler --path tests
@@ -84,6 +82,3 @@ sls invoke test [--stage stage] [--region region] [-f function]
 ```
 
 If no function names are passed to "invoke test", all tests related to handler functions are run.
-
-## License
-https://github.com/nordcloud/serverless-jest-plugin/blob/master/LICENSE
