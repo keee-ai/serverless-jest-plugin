@@ -46,20 +46,21 @@ describe('utils', () => {
     expect(template).toBe(expectedTemplate);
   });
 
-  it('tests default createTestFolder', () =>
-    utils.createTestFolder().then((folder) => {
-      expect(folder).toBe('test');
-    }));
+  it('tests default createTestFolder', async () => {
+    const folder = await utils.createTestFolder()
+    expect(folder).toBe('test');
+  })
 
-  it('tests default createTestFolder (exists)', () =>
-    utils.createTestFolder().then((folder) => {
-      expect(folder).toBe('test');
-    }));
 
-  it('tests custom createTestFolder', () =>
-    utils.createTestFolder('custom').then((folder) => {
+  it('tests default createTestFolder (exists)', async () => {
+    const folder = await utils.createTestFolder()
+    expect(folder).toBe('test');
+  })
+
+    it('tests custom createTestFolder', async () => {
+      const folder = await utils.createTestFolder('custom')
       expect(folder).toBe('custom');
-    }));
+    })
 
   it('tests funcNameFromPath', () => {
     const functionName = utils.funcNameFromPath('path/to/functionName.js');

@@ -6,7 +6,6 @@ export async function runTests(serverless, options, conf) {
   const allFunctions = serverless.service.getAllFunctions();
   const config = Object.assign({ testEnvironment: "node" }, conf);
 
-  await serverless.variables.populateService();
   allFunctions.forEach((name) => setEnv(serverless, name));
 
   if (!config.testRegex) {
@@ -35,4 +34,4 @@ export async function runTests(serverless, options, conf) {
 
     throw output.results;
   });
-};
+}

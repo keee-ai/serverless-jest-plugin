@@ -1,5 +1,5 @@
 import path from "path";
-import fse from "fs-extra/esm";
+import fse from "fs-extra";
 
 const defaultTestsRootFolder = "test"; // default test folder used for tests
 
@@ -23,6 +23,8 @@ export async function createTestFolder(testsRootFolder) {
   if (!doesExist) {
     await fse.mkdir(testsFolder);
   }
+
+  return testsFolder;
 }
 
 export function getTemplateFromFile(templateFilenamePath) {
@@ -42,4 +44,3 @@ export function setEnv(serverless, funcName) {
     : {};
   return Object.assign(process.env, serviceVars, functionVars);
 }
-

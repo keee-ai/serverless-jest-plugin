@@ -1,6 +1,6 @@
 import path from "path";
 import ejs from "ejs";
-import fse from "fs-extra/esm";
+import fse from "fs-extra";
 import utils from "./utils";
 
 const testTemplateFile = path.join("templates", "test-template.ejs");
@@ -21,7 +21,7 @@ export function writeTestfile(serverless, options, testConfig) {
   return ensureDir(testConfig.testPath).then(() =>
     writeFile(testConfig.testFilePath, content),
   );
-};
+}
 
 const testfileNotExists = async (testConfig) =>
   fse.exists(testConfig.testFilePath, (exists) => {
@@ -67,5 +67,4 @@ export function createTest(serverless, options) {
     .catch((error) => {
       throw new Error(error);
     });
-};
-
+}

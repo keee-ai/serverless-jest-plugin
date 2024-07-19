@@ -1,6 +1,6 @@
 'use strict';
 
-const Plugin = require('../index');
+import Plugin from '../index';
 
 describe('plugin', () => {
   it('checks that commands exists', () => {

@@ -1,11 +1,16 @@
 import yamlEdit from "yaml-edit";
-import fse from "fs-extra/esm";
+import fse from "fs-extra";
 import path from "path";
 import ejs from "ejs";
 
 const functionTemplateFile = path.join("templates", "function-template.ejs");
 
-const validFunctionRuntimes = ["aws-nodejs14.x", "aws-nodejs18.x"];
+const validFunctionRuntimes = [
+  "aws-nodejs14.x",
+  "aws-nodejs16.x",
+  "aws-nodejs18.x",
+  "aws-nodejs20.x",
+];
 
 const humanReadableFunctionRuntimes = `${validFunctionRuntimes
   .map((template) => `'${template}'`)
@@ -50,8 +55,7 @@ export function createAWSNodeJSFuncFile(serverless, handlerPath) {
   serverless.cli.log(
     `Created function file ${path.join(functionDir, handlerFile)}`,
   );
-  return BbPromise.resolve();
-};
+}
 
 export function createFunction(serverless, options) {
   serverless.cli.log("Generating function...");
@@ -102,7 +106,5 @@ export function createFunction(serverless, options) {
     if (validFunctionRuntimes.indexOf(runtime) > -1) {
       return createAWSNodeJSFuncFile(serverless, handler);
     }
-
-    return;
   });
-};
+}

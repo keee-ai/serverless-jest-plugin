@@ -1,9 +1,9 @@
 import lambdaWrapper from "lambda-wrapper";
-import createFunction from "./lib/create-function";
-import createTest from "./lib/create-test";
-import runTests from "./lib/run-tests";
+import { createFunction } from "./lib/create-function";
+import { createTest } from "./lib/create-test";
+import { runTests } from "./lib/run-tests";
 
-export class ServerlessJestPlugin {
+class ServerlessJestPlugin {
   constructor(serverless, options) {
     this.serverless = serverless;
     this.service = serverless.service || {};
@@ -88,30 +88,37 @@ export class ServerlessJestPlugin {
     };
 
     this.hooks = {
-      "create:test:test": () =>
-        BbPromise.bind(this).then(() =>
-          createTest(this.serverless, this.options),
-        ),
-      "invoke:test:test": () =>
-        BbPromise.bind(this)
-          .then(() => runTests(this.serverless, this.options, this.config))
-          .catch((err) => {
-            if (err.success === false) {
-              // This is a successful run but with failed tests
-              process.exit(1);
-            }
-            // Not sure what this is
-            throw err;
-          }),
-      "create:function:create": () =>
-        BbPromise.bind(this)
-          .then(() => createFunction(this.serverless, this.options))
-          .then(() => createTest(this.serverless, this.options)),
+      "create:test:test": async () => {
+        await createTest(this.serverless, this.options);
+      },
+      "invoke:test:test": async () => {
+        try {
+          await runTests(this.serverless, this.options, this.config);
+        } catch (err) {
+          if (err.success === false) {
+            // This is a successful run but with failed tests
+            process.exit(1);
+          }
+          // Not sure what this is
+          throw err;
+        }
+      },
+      "create:function:create": async () => {
+        await createFunction(this.serverless, this.options);
+        await createTest(this.serverless, this.options);
+      },
     };
   }
 }
 
-export lambdaWrapper;
+export default ServerlessJestPlugin;
+export { lambdaWrapper };
+
+// Add this for CommonJS compatibility
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
+  module.exports = ServerlessJestPlugin;
+  module.exports.lambdaWrapper = lambdaWrapper;
+}
 
 // Match `serverless-mocha-plugin`
 export function getWrapper(modName, modPath, handler) {
@@ -124,4 +131,4 @@ export function getWrapper(modName, modPath, handler) {
     handler,
   });
   return wrapped;
-};
+}

@@ -1,13 +1,25 @@
 {
-  "name": "@keee-ai/serverless-jest-plugin",
-  "version": "0.5.0",
+  "name": "@madeline/serverless-jest-plugin-v3",
+  "version": "0.5.11",
   "description": "Serverless v3+ plugin for test driven development using Jest",
-  "main": "index.js",
+  "main": "./dist/cjs/index.js",
   "author": "keee Engineering Team <engineering@keee.ai>",
   "scripts": {
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:esm": "BABEL_ENV=esm babel src --out-dir dist/esm",
+    "build:cjs": "BABEL_ENV=cjs babel src --out-dir dist/cjs",
+    "build": "npm run build:esm && npm run build:cjs"
   },
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/keee-ai/serverless-jest-plugin.git"
@@ -29,6 +41,7 @@
     "@babel/core": "^7.24.9",
     "@babel/plugin-transform-modules-commonjs": "^7.24.8",
     "@babel/preset-env": "^7.24.8",
+    "babel-plugin-add-module-exports": "^1.0.4",
     "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-config-airbnb-base": "^11.0.1",
