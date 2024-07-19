@@ -1,6 +1,6 @@
 {
   "name": "@madeline/serverless-jest-plugin-v3",
-  "version": "0.5.11",
+  "version": "0.6.0",
   "description": "Serverless v3+ plugin for test driven development using Jest",
   "main": "./dist/cjs/index.js",
   "author": "keee Engineering Team <engineering@keee.ai>",
